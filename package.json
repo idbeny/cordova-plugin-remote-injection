@@ -1,9 +1,9 @@
 {
-  "name": "cordova-plugin-remote-injection",
-  "version": "0.5.2",
+  "name": "cordova-plugin-remote-injection-idbeny",
+  "version": "0.6.0",
   "description": "Injects Cordova into a remote site.",
   "cordova": {
-    "id": "cordova-plugin-remote-injection",
+    "id": "cordova-plugin-remote-injection-idbeny",
     "platforms": [
       "android",
       "ios"
@@ -11,13 +11,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/TruckMovers/cordova-plugin-remote-injection"
+    "url": "https://github.com/idbeny/cordova-plugin-remote-injection.git"
   },
   "keywords": [
     "ecosystem:cordova",
     "cordova-android",
     "cordova-ios"
   ],
-  "author": "Brad Reynolds",
+  "author": "idbeny",
   "license": "Apache-2.0"
 }

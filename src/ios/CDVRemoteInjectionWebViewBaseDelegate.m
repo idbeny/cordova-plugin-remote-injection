@@ -40,11 +40,6 @@
     NSDate *lastRequestTime;
     
     /*
-     Reference to the currently displayed alert view.  Can be NULL.
-     */
-    UIAlertView *alertView;
-    
-    /*
      True if the user forced a reload.
      */
     BOOL userRequestedReload;
@@ -161,40 +156,28 @@
 /*
  Prompts the user providing them a choice to retry the latest request or wait.
  */
--(void) displayRetryPromptWithMessage:(NSString*)message withCancelText:(NSString *)cancelText retryable:(BOOL) retry
-{
-    alertView = [[UIAlertView alloc] initWithTitle:@"Connection Error"
-                                           message:message
-                                          delegate:self
-                                 cancelButtonTitle:cancelText
-                                 otherButtonTitles:nil];
-    if (retry) {
-        [alertView addButtonWithTitle:@"Retry"];
-    }
-    [alertView show];
-}
-
-/*
- * Invoked as callback from UIAlertView when prompting the user about connection issues.
- */
-- (void) alertView:(UIAlertView *)view didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    alertView = NULL;
-
-    if(buttonIndex == 1) {
-        userRequestedReload = YES; // Allows us to keep track of the fact that an error may be raised
+-(void) displayRetryPromptWithMessage:(NSString*)message withCancelText:(NSString *)cancelText retryable:(BOOL) retry {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Connection Error" message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelText style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        self->userRequestedReload = YES; // Allows us to keep track of the fact that an error may be raised
         // by the webView as a result of attempting to load a page before the previous request finished.
 
         NSLog(@"User initiated retry of current request");
         [self retryCurrentRequest];
-    }
-
-    if (buttonIndex == 0 || buttonIndex == 1) {
-        // In either the case that the user says to wait or retry we always want to reset the timer so that they're
-        // prompted if the request has not completed.  This provides the user a way to get out of a blank screen
-        // on start up.
         [self startRequestTimer];
+    }];
+    [alert addAction:cancelAction];
+    if (retry) {
+        UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            // In either the case that the user says to wait or retry we always want to reset the timer so that they're
+            // prompted if the request has not completed.  This provides the user a way to get out of a blank screen
+            // on start up.
+            [self startRequestTimer];
+        }];
+        [alert addAction:retryAction];
     }
+    UIViewController *rootController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    [rootController presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - Subclass callbacks
@@ -229,12 +212,6 @@
  */
 -(void) cancelRequestTimer
 {
-    if (alertView != NULL && alertView.visible == YES) {
-        // Dismiss the alert view.  The assumption is the page finished loading while the view was displayed.
-        [alertView dismissWithClickedButtonIndex:-1 animated:YES];
-        alertView = NULL;
-    }
-    
     if (lastRequestTime != NULL) {
         [NSObject cancelPreviousPerformRequestsWithTarget:(id)self selector:@selector(loadProgressCheckCallback:) object:lastRequestTime];
     }

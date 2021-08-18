@@ -1,3 +1,12 @@
+# Latest(0.6.0)
+
+[Latest Github](https://github.com/TruckMovers/cordova-plugin-remote-injection)（Forked From [TruckMovers-github](https://github.com/TruckMovers/cordova-plugin-remote-injection)）
+
+---
+---
+
+# Source README 👇
+
 # Deprecation Notice
 
 As the casual onlooker can tell this repo hasn't been updated in a while.  Unfortunately this project is deprecated.  If anyone would like to fork it and address issues please do so but PRs won't be reviewed and merged into this repo.  Cordova is not simple to test (or at least wasn't when this was maintained) and I don't have the time to contribute to maintaining it.
