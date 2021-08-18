@@ -1,33 +1,13 @@
-# Latest(0.6.0)
+# cordova-plugin-remote-injection-idbeny
 
+## Latest(0.6.0)
 [Latest Github](https://github.com/TruckMovers/cordova-plugin-remote-injection)（Forked From [TruckMovers-github](https://github.com/TruckMovers/cordova-plugin-remote-injection)）
 
 ---
----
-
-# Source README 👇
-
-# Deprecation Notice
-
-As the casual onlooker can tell this repo hasn't been updated in a while.  Unfortunately this project is deprecated.  If anyone would like to fork it and address issues please do so but PRs won't be reviewed and merged into this repo.  Cordova is not simple to test (or at least wasn't when this was maintained) and I don't have the time to contribute to maintaining it.
-
-If the repos is forked and maintained let me know and we'll link to your repo here.
-
-- Brad Reynolds
-
----
-
-The remote injection plugin allows a remote site to interact with [cordova](https://cordova.apache.org)'s javascript APIs when loaded within your cordova app.  When compared with a cordova app that packages its HTML the downside to loading a remote site is if the network is down your app is down.  This can be an acceptable trade off if your site has a heavy dependency on web services.  The advantage to this approach is the build, deployment, and previous investment of an existing site doesn't need to change and can continue to work for browser based users providing a smooth transition to an app which provides tighter native integration.
-
-## Features
-* Injects cordova and installed plugin JS into the webview for any remotely browsed page allowing them the same access to the cordova object and its plugins as a packaged cordova app.
-* After a developer defined interval will prompt the user if the loading of the main site is taking too long.  The user's options are to wait or retry.  If the user waits the prompt will be displayed again after the developer defined interval.  If the site loads while the dialog is displayed the dialog is dismissed.
-* Support for iOS and Android platforms.
-* Supports both UIWebView and WKWebView on iOS out of the box (added in v0.4.0).
 
 ## Installation
 ```bash
-cordova plugin add cordova-plugin-remote-injection
+cordova plugin add cordova-plugin-remote-injection-idbeny
 ```
 
 ## Configuration
